@@ -1,0 +1,12 @@
+version: '3'
+services:
+  backend:
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - .:/app
+      - vendor:/vendor
+    ports:
+      - 3000:3000
+volumes:
+  vendor:
