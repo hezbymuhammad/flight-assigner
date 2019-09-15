@@ -17,10 +17,7 @@ class GraphqlController < ApplicationController
     handle_error_in_development e
   end
 
-  private
-
-  # Handle form data, JSON body, or a blank value
-  def ensure_hash(ambiguous_param)
+  private def ensure_hash(ambiguous_param)
     case ambiguous_param
     when String
       if ambiguous_param.present?
@@ -37,7 +34,7 @@ class GraphqlController < ApplicationController
     end
   end
 
-  def handle_error_in_development(e)
+  private def handle_error_in_development(e)
     logger.error e.message
     logger.error e.backtrace.join("\n")
 
