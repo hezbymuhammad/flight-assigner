@@ -68,3 +68,36 @@ Then you will get response
   "jwt": "<your-token>"
 }
 ```
+
+### Graphql
+
+Some sample graphql query you can make is
+
+1. Get currentUser
+
+```graphql
+
+query{
+  currentUser{
+    email
+    username
+  }
+}
+```
+
+2. Create order
+
+```graphql
+
+mutation{
+  createOrder(input: {
+    planeId: 1
+  }{
+    clientMutationId
+    errors
+    order
+  }
+}
+```
+
+You should be able to see complete query with graphql client docs
