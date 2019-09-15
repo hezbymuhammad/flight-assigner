@@ -35,8 +35,8 @@ ActiveRecord::Schema.define(version: 2019_09_15_032626) do
     t.integer "section_idx"
     t.integer "column_idx"
     t.integer "row_idx"
-    t.integer "queue_number"
-    t.boolean "occupied"
+    t.integer "queue_number", default: 0, null: false
+    t.boolean "occupied", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["plane_id"], name: "index_seats_on_plane_id"

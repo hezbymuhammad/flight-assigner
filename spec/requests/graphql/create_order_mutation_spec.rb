@@ -8,7 +8,7 @@ describe Mutations::CreateOrder, type: :request do
   let(:plane) { create :plane }
   let!(:seat) { create :seat, plane: plane, occupied: false }
   let(:inputs) { "planeId: #{plane.id}" }
-  let(:fields) { 'errors order { id plane { name } seat { code } }' }
+  let(:fields) { 'errors order { id plane { name } seat { code queueNumber } }' }
   let(:query) { "mutation { #{collection} ( input: { #{inputs} } ) { #{fields} } }" }
 
   it '401 when unauthenticated' do
@@ -32,7 +32,8 @@ describe Mutations::CreateOrder, type: :request do
 	      name: plane.name
 	    },
 	    seat: {
-	      code: seat.code
+	      code: seat.code,
+	      queueNumber: seat.queue_number
 	    }
 	  }
 	}
