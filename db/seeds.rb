@@ -5,3 +5,5 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+User.create(username: 'test', email: 'test@example.com', password: 'test0)')
+Plane.create(name: 'Tupolev', dimension: '[[2,3], [2,2]]')
