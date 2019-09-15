@@ -4,7 +4,7 @@ describe Types::UserType, type: :request do
   include ApiHelpers
 
   let(:user) { create :user }
-  let(:plane) { create :plane, :with_unoccupied_seats }
+  let(:plane) { create :plane }
   let!(:order) { create :order, plane: plane, user: user }
   let(:collection) { 'currentUser' }
   let(:fields) { 'username email orders { id }' }

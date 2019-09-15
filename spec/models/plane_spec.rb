@@ -10,6 +10,16 @@ describe Plane, type: :model do
   context 'validations' do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:dimension) }
+
+    it 'validate using DimensionValidator' do
+      expect(plane).to validate_with DimensionValidator
+    end
+
+    it 'not validate using DimensionValidator if prototype' do
+      plane = create :plane, prototype_only: true, dimension: '[]'
+
+      expect(plane.valid?).to be_truthy
+    end
   end
 
   context 'callbacks' do
@@ -17,6 +27,12 @@ describe Plane, type: :model do
       expect(SeatsFactoryService).to receive_message_chain(:new, :run)
 
       create :plane
+    end
+
+    it 'not assign seats if prototype only' do
+      expect(SeatsFactoryService).to_not receive(:new)
+
+      create :plane, prototype_only: true, dimension: '[]'
     end
   end
 

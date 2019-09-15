@@ -4,9 +4,9 @@ class Plane < ApplicationRecord
   validates_presence_of :name
   validates_presence_of :dimension
 
-  validates_with DimensionValidator
+  validates_with DimensionValidator, unless: :prototype_only
 
-  after_commit :assign_seats
+  after_commit :assign_seats, unless: :prototype_only
 
   def available_seat
     seats.unoccupied.queued.first

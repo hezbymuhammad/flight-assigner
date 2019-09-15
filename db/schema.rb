@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2019_09_15_032626) do
   create_table "planes", force: :cascade do |t|
     t.string "dimension"
     t.string "name"
+    t.boolean "prototype_only", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

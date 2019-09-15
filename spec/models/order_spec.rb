@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Order, type: :model do
-  let(:plane) { create :plane, :with_unoccupied_seats }
+  let(:plane) { create :plane }
 
   context 'associations' do
     it { should belong_to(:user) }
