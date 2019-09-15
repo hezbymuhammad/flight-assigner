@@ -36,11 +36,13 @@ Then you will get something like this
 We provide a flexible graphql endpoint to satisfy the needs of frontend. Graphql endpoint is in `/graphql`.
 You can query all available types and mutation, we provide you with complete docs from each types.
 
-
 ### Assumption
 
 1. User already logged in when accessing graphql endpoint.
 2. Backend delivered first, then frontend.
+3. User should order first in order to get seated
+
+![simple flow](https://i.ibb.co/VNDKyC4/Flight-Seat.jpg)
 
 ### Authentication
 
@@ -76,7 +78,6 @@ Some sample graphql query you can make is
 1. Get currentUser
 
 ```graphql
-
 query{
   currentUser{
     email
@@ -87,6 +88,9 @@ query{
 
 2. Create order
 
+This query is used to create new order. Note that when you create order, you will automatically get seated
+
+
 ```graphql
 
 mutation{
@@ -96,6 +100,24 @@ mutation{
     clientMutationId
     errors
     order
+  }
+}
+```
+
+3. Advance query
+
+This will query user's order and seat assignment
+
+```graphql
+query{
+  currentUser{
+    email
+    orders {
+      seat {
+        code
+      }
+    }
+    username
   }
 }
 ```
