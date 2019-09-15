@@ -10,7 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_14_134726) do
+ActiveRecord::Schema.define(version: 2019_09_15_032626) do
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "seat_id"
+    t.integer "plane_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plane_id"], name: "index_orders_on_plane_id"
+    t.index ["seat_id"], name: "index_orders_on_seat_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "planes", force: :cascade do |t|
+    t.string "dimension"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "seats", force: :cascade do |t|
+    t.integer "plane_id"
+    t.integer "section_idx"
+    t.integer "column_idx"
+    t.integer "row_idx"
+    t.integer "queue_number"
+    t.boolean "occupied"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["plane_id"], name: "index_seats_on_plane_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username"
