@@ -48,6 +48,7 @@ You can query all available types and mutation, we provide you with complete doc
 
 1. We're using JWT token. Please set auth header with `Bearer <your-token-here>`
 2. To get token use `/user_token` endpoint
+3. Authentication is required to access graphql endpoint
 
 ```bash
 curl -X POST \
@@ -123,3 +124,4 @@ query{
 ```
 
 You should be able to see complete query with graphql client docs
+

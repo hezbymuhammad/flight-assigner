@@ -1,7 +1,7 @@
 module Mutations
   class CreateOrder < GraphQL::Schema::RelayClassicMutation
     field :order, Types::OrderType, null: true,
-      description: "Updated user"
+      description: "Created order"
 
     field :errors, [String], null: true,
       description: "Error messages"

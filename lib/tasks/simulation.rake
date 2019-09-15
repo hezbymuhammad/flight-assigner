@@ -9,8 +9,10 @@ namespace :simulation do
     puts "Now queuing 30 users"
     puts ""
     puts ""
-    30.times do
-      user = FactoryBot.create(:user)
+    30.times do |i|
+      username = FFaker::Internet.user_name
+      email = FFaker::Internet.email
+      user = FactoryBot.create(:user, username: "#{username}#{i}", email: "#{email}#{i}")
       puts "Created user: #{user.username}"
       order = user.orders.create(plane: plane)
       puts "User queued on seat number #{order.seat.code}"
@@ -20,7 +22,7 @@ namespace :simulation do
     plane.reload
     max_section = plane.seats.maximum(:section_idx)
     max_row = plane.seats.maximum(:row_idx)
-    
+
     puts "red is occupied seat".colorize(:red)
     puts "green is available seat".colorize(:green)
     puts ""
@@ -58,3 +60,4 @@ namespace :simulation do
     puts ""
   end
 end
+
