@@ -4,8 +4,10 @@ describe Types::UserType, type: :request do
   include ApiHelpers
 
   let(:user) { create :user }
+  let(:plane) { create :plane, :with_unoccupied_seats }
+  let!(:order) { create :order, plane: plane, user: user }
   let(:collection) { 'currentUser' }
-  let(:fields) { 'username email' }
+  let(:fields) { 'username email orders { id }' }
   let(:query) { "query { #{collection} { #{fields} } }" }
 
   it '401 when unauthenticated' do
@@ -24,7 +26,10 @@ describe Types::UserType, type: :request do
       data: {
 	currentUser: {
 	  username: user.username,
-	  email: user.email
+	  email: user.email,
+	  orders: [{
+	    id: order.id.to_s
+	  }]
 	}
       }
     )

@@ -4,7 +4,7 @@ module Types
       description: "Logged in user"
 
     def current_user
-      context[:current_user].attributes
+      context[:current_user]
     end
   end
 end
