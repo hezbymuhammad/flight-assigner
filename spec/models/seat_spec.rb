@@ -17,6 +17,16 @@ describe Seat, type: :model do
     end
   end
 
+  describe '.occupied' do
+    let(:occupied_seats) { create_list :seat, 2, occupied: true }
+
+    before { create_list :seat, 2, occupied: false }
+
+    it 'return unoccupied seats' do
+      expect(Seat.occupied).to eq(occupied_seats)
+    end
+  end
+
   describe '.queued' do
     let(:seats) { create_list :seat, 2 }
 

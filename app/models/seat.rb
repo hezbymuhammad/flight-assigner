@@ -6,6 +6,7 @@ class Seat < ApplicationRecord
   validates_presence_of :row_idx
 
   scope :unoccupied, -> { where(occupied: false) }
+  scope :occupied, -> { where(occupied: true) }
   scope :queued, -> { order(:queue_number) }
 
   def mark_as_occupied!
