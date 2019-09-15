@@ -7,4 +7,12 @@ class Seat < ApplicationRecord
 
   scope :unoccupied, -> { where(occupied: false) }
   scope :queued, -> { order(:queue_number) }
+
+  def mark_as_occupied!
+    update(occupied: true)
+  end
+
+  def code
+    "#{section_idx}#{column_idx}-#{row_idx}"
+  end
 end

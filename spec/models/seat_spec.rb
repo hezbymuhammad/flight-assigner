@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe Seat, type: :model do
-  let(:seats) { create_list :seat, 2 }
+  let(:seat) { create :seat, occupied: false }
 
   context 'associations' do
     it { should belong_to(:plane) }
@@ -18,8 +18,18 @@ describe Seat, type: :model do
   end
 
   describe '.queued' do
+    let(:seats) { create_list :seat, 2 }
+
     it 'order based on queue_number' do
       expect(Seat.queued).to eq(seats.sort.sort{|a,b| a.queue_number <=> b.queue_number })
+    end
+  end
+
+  describe '#mark_as_occupied!' do
+    it 'update occupied to true' do
+      seat.mark_as_occupied!
+
+      expect(seat.reload.occupied).to be_truthy
     end
   end
 end

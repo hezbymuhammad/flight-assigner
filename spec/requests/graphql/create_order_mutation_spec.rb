@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-describe Mutations::UpdateUser, type: :request do
+describe Mutations::CreateOrder, type: :request do
   include ApiHelpers
 
   let(:user) { create :user }
-  let(:collection) { 'updateUser' }
-  let(:username) { FFaker::Internet.user_name }
-  let(:email) { FFaker::Internet.email }
-  let(:inputs) { "id: #{user.id} username: \"#{username}\" email: \"#{email}\" " }
-  let(:fields) { 'errors user { username email }' }
+  let(:collection) { 'createOrder' }
+  let(:plane) { create :plane }
+  let!(:seat) { create :seat, plane: plane, occupied: false }
+  let(:inputs) { "planeId: #{plane.id}" }
+  let(:fields) { 'errors order { id plane { name } seat { code } }' }
   let(:query) { "mutation { #{collection} ( input: { #{inputs} } ) { #{fields} } }" }
 
   it '401 when unauthenticated' do
@@ -24,11 +24,16 @@ describe Mutations::UpdateUser, type: :request do
 
     expect(json_response).to eq(
       data: {
-	updateUser: {
+	createOrder: {
 	  errors: [],
-	  user: {
-	    username: username,
-	    email: email
+	  order: {
+	    id: Order.last.id.to_s,
+	    plane: {
+	      name: plane.name
+	    },
+	    seat: {
+	      code: seat.code
+	    }
 	  }
 	}
       }
