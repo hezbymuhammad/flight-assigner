@@ -3,6 +3,15 @@ require 'rails_helper'
 describe Order, type: :model do
   let(:plane) { create :plane }
 
+  context 'validations' do
+    it 'validates seat should be available' do
+      plane.seats.each{ |s| s.update(occupied: true) }
+
+      order = build :order, plane: plane
+      expect(order).to be_invalid
+    end
+  end
+
   context 'associations' do
     it { should belong_to(:user) }
     it { should belong_to(:seat).optional }
